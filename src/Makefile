@@ -57,7 +57,11 @@ PWD    := $(shell pwd)
 .PHONY: install bbanner ibanner
 
 all: bbanner
-	$(MAKE) -C $(KDIR) M=$(PWD) SUBDIRS=$(PWD) modules
+#ifeq ($(call kver_ge,5,0,0),1)
+       $(MAKE) -C $(KDIR) M=$(PWD) modules
+#else
+       $(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+#endif
 
 clean:
 	@rm -f *.o *.ko vers.c .*.cmd .*.d
